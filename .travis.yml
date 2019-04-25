@@ -1,0 +1,23 @@
+dist: precise
+language: java
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+
+# Works around an issue in Travis, see
+# https://github.com/travis-ci/travis-ci/issues/5227.
+#
+# The fix below is due to @BanzaiMan, see
+# https://github.com/travis-ci/travis-ci/issues/5227#issuecomment-165131913
+addons:
+  hosts:
+    - test-host
+  hostname: test-host
+
+after_success:
+  - ./gradlew cobertura coveralls
+
+cache:
+  directories:
+    - $HOME/.m2
